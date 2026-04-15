@@ -7,7 +7,6 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
-  StyleSheet,
   ScrollView,
   TouchableOpacity,
   Alert,
@@ -21,7 +20,9 @@ import {
   obterCorStatus,
   obterTextoStatus,
 } from "../utils/formatters";
-import { styles } from "../styles/consultaDetalhes.styles";
+
+// ATENÇÃO: Importação correta puxando do novo arquivo!
+import styles from "../styles/consultaDetalhes.styles";
 
 type ConsultaDetalhesScreenProps = {
   navigation: any;
@@ -47,62 +48,30 @@ export default function ConsultaDetalhesScreen({
       setConsulta(dados);
     } catch (error) {
       console.error("Erro ao carregar consulta:", error);
-      Alert.alert("Erro", "Não foi possível carregar a consulta");
-      navigation.goBack();
+      Alert.alert("Erro", "Não foi possível carregar os detalhes.");
     } finally {
       setLoading(false);
     }
   }
 
-  async function handleConfirmar() {
-    if (!consulta) return;
-
-    Alert.alert(
-      "Confirmar Consulta",
-      "Deseja confirmar esta consulta?",
-      [
-        { text: "Cancelar", style: "cancel" },
-        {
-          text: "Confirmar",
-          onPress: async () => {
-            try {
-              await consultasService.confirmarConsulta(consulta.id);
-              carregarConsulta();
-            } catch (error) {
-              Alert.alert("Erro", "Não foi possível confirmar a consulta");
-            }
-          },
-        },
-      ]
-    );
+  function handleConfirmar() {
+    Alert.alert("Sucesso", "Ação de confirmar (mock)");
   }
 
-  async function handleCancelar() {
-    if (!consulta) return;
-
-    Alert.alert(
-      "Cancelar Consulta",
-      "Tem certeza que deseja cancelar esta consulta?",
-      [
-        { text: "Não", style: "cancel" },
-        {
-          text: "Sim, cancelar",
-          style: "destructive",
-          onPress: async () => {
-            try {
-              await consultasService.cancelarConsulta(consulta.id);
-              carregarConsulta();
-            } catch (error) {
-              Alert.alert("Erro", "Não foi possível cancelar a consulta");
-            }
-          },
-        },
-      ]
-    );
+  function handleCancelar() {
+    Alert.alert("Sucesso", "Ação de cancelar (mock)");
   }
 
-  if (loading || !consulta) {
-    return <Loading mensagem="Carregando detalhes..." />;
+  if (loading) {
+    return <Loading mensagem="Carregando detalhes da consulta..." />;
+  }
+
+  if (!consulta) {
+    return (
+      <View style={styles.erroContainer}>
+        <Text style={styles.erroTexto}>Consulta não encontrada.</Text>
+      </View>
+    );
   }
 
   const corStatus = obterCorStatus(consulta.status);
@@ -110,22 +79,12 @@ export default function ConsultaDetalhesScreen({
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContent}>
-        {/* Status Badge */}
         <View style={[styles.statusBadge, { backgroundColor: corStatus }]}>
           <Text style={styles.statusTexto}>
             {obterTextoStatus(consulta.status)}
           </Text>
         </View>
 
-        {/* Seção Paciente */}
-        <View style={styles.secao}>
-          <Text style={styles.secaoTitulo}>👤 Paciente</Text>
-          <View style={styles.card}>
-            <Text style={styles.valor}>{consulta.pacienteNome}</Text>
-          </View>
-        </View>
-
-        {/* Seção Médico */}
         <View style={styles.secao}>
           <Text style={styles.secaoTitulo}>👨‍⚕️ Médico</Text>
           <View style={styles.card}>
@@ -134,9 +93,8 @@ export default function ConsultaDetalhesScreen({
           </View>
         </View>
 
-        {/* Seção Data e Hora */}
         <View style={styles.secao}>
-          <Text style={styles.secaoTitulo}>📅 Agendamento</Text>
+          <Text style={styles.secaoTitulo}>📅 Data e Horário</Text>
           <View style={styles.card}>
             <View style={styles.row}>
               <View style={styles.coluna}>
@@ -153,7 +111,6 @@ export default function ConsultaDetalhesScreen({
           </View>
         </View>
 
-        {/* Seção Observações */}
         {consulta.observacoes && (
           <View style={styles.secao}>
             <Text style={styles.secaoTitulo}>📝 Observações</Text>
@@ -163,7 +120,6 @@ export default function ConsultaDetalhesScreen({
           </View>
         )}
 
-        {/* Botões de Ação */}
         <View style={styles.acoes}>
           {consulta.status === "agendada" && (
             <TouchableOpacity
@@ -188,4 +144,3 @@ export default function ConsultaDetalhesScreen({
     </View>
   );
 }
-

@@ -1,45 +1,16 @@
 import { StyleSheet } from "react-native";
+import { colors } from "./colors";
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f5f5f5",
-  },
-  scrollContent: {
-    padding: 20,
-  },
-  statusBadge: {
-    alignSelf: "center",
-    paddingHorizontal: 24,
-    paddingVertical: 12,
-    borderRadius: 24,
-    marginBottom: 24,
-  },
-  statusTexto: {
-    color: "#fff",
-    fontWeight: "bold",
-    fontSize: 16,
-    textTransform: "uppercase",
-  },
-  secao: {
-    marginBottom: 20,
-  },
-  secaoTitulo: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#333",
-    marginBottom: 12,
-  },
-  card: {
-    backgroundColor: "#fff",
-    borderRadius: 12,
+    backgroundColor: colors.background,
     padding: 16,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 3,
   },
+<<<<<<< HEAD
+  titulo: {
+    fontSize: 20,
+=======
   row: {
     flexDirection: "row",
     gap: 16,
@@ -48,26 +19,27 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   label: {
-    fontSize: 12,
+    fontSize: 14,
     color: "#666",
     marginBottom: 4,
   },
   valor: {
-    fontSize: 18,
+    fontSize: 16,
     color: "#333",
     fontWeight: "600",
   },
   observacoes: {
-    fontSize: 16,
+    fontSize: 15,
     color: "#555",
-    lineHeight: 24,
+    fontStyle: "italic",
+    lineHeight: 22,
   },
   acoes: {
+    marginTop: 10,
     gap: 12,
-    marginTop: 12,
   },
   botao: {
-    paddingVertical: 16,
+    padding: 16,
     borderRadius: 12,
     alignItems: "center",
   },
@@ -79,8 +51,24 @@ export const styles = StyleSheet.create({
   },
   botaoTexto: {
     color: "#fff",
+>>>>>>> 7c40322756b5d1b21e1c10b2e223322620f2cd70
     fontWeight: "bold",
+    color: colors.text,
+    marginBottom: 10,
+  },
+  info: {
+    color: colors.textSecondary,
+    marginBottom: 6,
+  },
+  erroContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  erroTexto: {
     fontSize: 16,
+    color: "#666",
   },
 });
 
+export default styles;

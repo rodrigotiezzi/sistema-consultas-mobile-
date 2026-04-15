@@ -4,8 +4,10 @@
  */
 
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-import { styles } from "../styles/novaConsulta.styles";
+import { View, Text, TouchableOpacity } from "react-native";
+
+// ATENÇÃO: Importação correta puxando do novo arquivo!
+import styles from "../styles/novaConsulta.styles";
 
 type NovaConsultaScreenProps = {
   navigation: any;
@@ -34,4 +36,3 @@ export default function NovaConsultaScreen({
     </View>
   );
 }
-

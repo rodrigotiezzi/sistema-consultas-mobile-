@@ -1,12 +1,9 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-} from "react-native";
+import { View, Text } from "react-native";
 import { StatusBar } from "expo-status-bar";
-import { styles } from "../styles/login.styles";
-// Componente não utilizado na versão simplificada
+
+// ATENÇÃO: Importação correta puxando do novo arquivo!
+import styles from "../styles/login.styles";
 
 type LoginProps = {
   onLoginSuccess: (tipo: "paciente" | "admin") => void;
@@ -27,5 +24,3 @@ export default function Login({
     </View>
   );
 }
-
-

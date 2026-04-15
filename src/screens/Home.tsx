@@ -4,8 +4,22 @@ import { StatusBar } from "expo-status-bar";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Consulta } from "../interfaces/consulta";
 import { ConsultaCard } from "../components";
-import { styles } from "../styles/app.styles";
+import  styles  from "../styles/app.styles";
 import { obterConsultas, salvarConsultas } from "../services/storage";
+
+// Ensure all consultas have required properties
+function normalizarConsulta(consulta: any): Consulta {
+  return {
+    id: consulta.id,
+    pacienteId: consulta.pacienteId || 0,
+    pacienteNome: consulta.pacienteNome || "",
+    medicoId: consulta.medicoId || 0,
+    medicoNome: consulta.medicoNome || "",
+    data: consulta.data || "",
+    hora: consulta.hora || "",
+    status: consulta.status || "pendente",
+  };
+}
 
 export default function Home({ navigation }: any) {
   const [consultas, setConsultas] = useState<Consulta[]>([]);
@@ -16,7 +30,7 @@ export default function Home({ navigation }: any) {
 
   async function carregarConsultas() {
     const consultasSalvas = await obterConsultas();
-    setConsultas(consultasSalvas);
+    setConsultas(consultasSalvas.map(normalizarConsulta));
   }
 
   async function confirmarConsulta(consultaId: number) {
